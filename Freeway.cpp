@@ -23,9 +23,9 @@ float yt = 0;
 
 // Velocidades
 float vel1 = 0.7;
-float vel2 = 0.9;
+float vel2 = -0.9;
 float vel3 = 1.2;
-float vel4 = 1.5;
+float vel4 = -1.5;
 
 // Declaração de funções
 void anima(int valor);
@@ -55,7 +55,6 @@ void update(int valor) {
 	glutPostRedisplay;
 }
 
-
 // Função de animação
 void anima(int valor) {
 
@@ -64,21 +63,20 @@ void anima(int valor) {
 	tx3 += vel3;
 	tx4 += vel4;
 
-		
 	if(tx1 >= 1600){
 		tx1= -140;
 	}
 
-	if (tx2 >= 1600) {
-		tx2 = -140;
+	if (tx2 <= -140) {
+		tx2 = 1600;
 	}
 
 	if (tx3 >= 1600) {
 		tx3 = -140;
 	}
 
-	if (tx4 >= 1600) {
-		tx4 = -140;
+	if (tx4 <= -140) {
+		tx4 = 1600;
 	}
 
 	if (yt >= 845) {
@@ -96,24 +94,54 @@ void carro() {
 	// Faixa 1
 
 	glPushMatrix();
-	glTranslated(tx4, 0, 0);
+	glTranslated(tx3, 0, 0);
 
 		glBegin(GL_QUADS);
-		glColor3f(1.0, 0.5, 0.0);
+		glColor3f(1.0, 0.1, 0.0);
 		glVertex2f(-925, 57);
-		glColor3f(0.0, 0.0, 0.0);
 		glVertex2f(-825, 57);
 		glVertex2f(-825, 123);
-		glColor3f(1.0, 0.5, 0.0);
 		glVertex2f(-925, 123);
+		glEnd();
+
+		glBegin(GL_QUADS); 
+		glColor3f(0.6, 0.6, 1.0);
+		glVertex2f(-915, 62);
+		glVertex2f(-880, 62);
+		glVertex2f(-880, 118);
+		glVertex2f(-915, 118);
 		glEnd();
 
 		glBegin(GL_QUADS);
 		glColor3f(0.6, 0.6, 1.0);
-		glVertex2f(-875, 62);
 		glVertex2f(-840, 62);
+		glVertex2f(-855, 62);
+		glVertex2f(-855, 118);
 		glVertex2f(-840, 118);
-		glVertex2f(-875, 118);
+		glEnd();
+
+		glBegin(GL_LINE_STRIP);
+		glColor3f(0.0, 0.0, 0.0);
+		glVertex2f(-925, 57);
+		glVertex2f(-825, 57);
+		glVertex2f(-825, 123);
+		glVertex2f(-925, 123);
+		glEnd();
+
+		glBegin(GL_LINE_STRIP);
+		glColor3f(0.0, 0.0, 0.0);
+		glVertex2f(-915, 62);
+		glVertex2f(-880, 62);
+		glVertex2f(-880, 118);
+		glVertex2f(-915, 118);
+		glEnd();
+
+		glBegin(GL_LINE_STRIP);
+		glColor3f(0.0, 0.0, 0.0);
+		glVertex2f(-840, 62);
+		glVertex2f(-855, 62);
+		glVertex2f(-855, 118);
+		glVertex2f(-840, 118);
 		glEnd();
 
 	glPopMatrix();
@@ -121,24 +149,54 @@ void carro() {
 	// Faixa 2
 
 	glPushMatrix();
-	glTranslated(tx2, 0, 0);
+	glTranslated(tx1, 0, 0);
 
 		glBegin(GL_QUADS);
-		glColor3f(1.0, 0.5, 0.0);
+		glColor3f(1.0, 0.1, 0.0);
 		glVertex2f(-925, 244);
-		glColor3f(0.0, 0.0, 0.0);
 		glVertex2f(-825, 244);
 		glVertex2f(-825, 305);
-		glColor3f(1.0, 0.5, 0.0);
 		glVertex2f(-925, 305);
 		glEnd();
 
 		glBegin(GL_QUADS);
 		glColor3f(0.6, 0.6, 1.0);
-		glVertex2f(-875, 249);
+		glVertex2f(-915, 249);
+		glVertex2f(-880, 249);
+		glVertex2f(-880, 300);
+		glVertex2f(-915, 300);
+		glEnd();
+
+		glBegin(GL_QUADS);
+		glColor3f(0.6, 0.6, 1.0);
 		glVertex2f(-840, 249);
+		glVertex2f(-855, 249);
+		glVertex2f(-855, 300);
 		glVertex2f(-840, 300);
-		glVertex2f(-875, 300);
+		glEnd();
+
+		glBegin(GL_LINE_STRIP);
+		glColor3f(0.0, 0.0, 0.0);
+		glVertex2f(-925, 244);
+		glVertex2f(-825, 244);
+		glVertex2f(-825, 305);
+		glVertex2f(-925, 305);
+		glEnd();
+
+		glBegin(GL_LINE_STRIP);
+		glColor3f(0.0, 0.0, 0.0);
+		glVertex2f(-915, 249);
+		glVertex2f(-880, 249);
+		glVertex2f(-880, 300);
+		glVertex2f(-915, 300);
+		glEnd();
+
+		glBegin(GL_LINE_STRIP);
+		glColor3f(0.0, 0.0, 0.0);
+		glVertex2f(-840, 249);
+		glVertex2f(-855, 249);
+		glVertex2f(-855, 300);
+		glVertex2f(-840, 300);
 		glEnd();
 
 	glPopMatrix();
@@ -146,15 +204,13 @@ void carro() {
 	// Faixa 3
 
 	glPushMatrix();
-	glTranslated(tx3, 0, 0);
+	glTranslated(tx4, 0, 0);
 
 		glBegin(GL_QUADS);
-		glColor3f(1.0, 0.5, 0.0);
+		glColor3f(1.0, 0.1, 0.0);
 		glVertex2f(-925, -67);
-		glColor3f(0.0, 0.0, 0.0);
 		glVertex2f(-825, -67);
 		glVertex2f(-825, -128);
-		glColor3f(1.0, 0.5, 0.0);
 		glVertex2f(-925, -128);
 		glEnd();
 
@@ -166,20 +222,50 @@ void carro() {
 		glVertex2f(-875, -123);
 		glEnd();
 
+		glBegin(GL_QUADS);
+		glColor3f(0.6, 0.6, 1.0);
+		glVertex2f(-915, -72);
+		glVertex2f(-900, -72);
+		glVertex2f(-900, -123);
+		glVertex2f(-915, -123);
+		glEnd();
+
+		glBegin(GL_LINE_STRIP);
+		glColor3f(0.0, 0.0, 0.0);
+		glVertex2f(-925, -67);
+		glVertex2f(-825, -67);
+		glVertex2f(-825, -128);
+		glVertex2f(-925, -128);
+		glEnd();
+
+		glBegin(GL_LINE_STRIP);
+		glColor3f(0.0, 0.0, 0.0);
+		glVertex2f(-875, -72);
+		glVertex2f(-840, -72);
+		glVertex2f(-840, -123);
+		glVertex2f(-875, -123);
+		glEnd();
+
+		glBegin(GL_LINE_STRIP);
+		glColor3f(0.0, 0.0, 0.0);
+		glVertex2f(-915, -72);
+		glVertex2f(-900, -72);
+		glVertex2f(-900, -123);
+		glVertex2f(-915, -123);
+		glEnd();
+
 	glPopMatrix();
 
 	// Faixa 4
 
 	glPushMatrix();
-	glTranslated(tx1, 0, 0);
+	glTranslated(tx2, 0, 0);
 
 		glBegin(GL_QUADS);
-		glColor3f(1.0, 0.5, 0.0);
+		glColor3f(1.0, 0.1, 0.0);
 		glVertex2f(-925, -249);
-		glColor3f(0.0, 0.0, 0.0);
 		glVertex2f(-825, -249);
 		glVertex2f(-825, -310);
-		glColor3f(1.0, 0.5, 0.0);
 		glVertex2f(-925, -310);
 		glEnd();
 
@@ -191,9 +277,40 @@ void carro() {
 		glVertex2f(-875, -305);
 		glEnd();
 
+		glBegin(GL_QUADS);
+		glColor3f(0.6, 0.6, 1.0);
+		glVertex2f(-900, -254);
+		glVertex2f(-915, -254);
+		glVertex2f(-915, -305);
+		glVertex2f(-900, -305);
+		glEnd();
+
+		glBegin(GL_LINE_STRIP);
+		glColor3f(0.0, 0.0, 0.0);
+		glVertex2f(-925, -249);
+		glVertex2f(-825, -249);
+		glVertex2f(-825, -310);
+		glVertex2f(-925, -310);
+		glEnd();
+
+		glBegin(GL_LINE_STRIP);
+		glColor3f(0.0, 0.0, 0.0);
+		glVertex2f(-875, -254);
+		glVertex2f(-840, -254);
+		glVertex2f(-840, -305);
+		glVertex2f(-875, -305);
+		glEnd();
+
+		glBegin(GL_LINE_STRIP);
+		glColor3f(0.0, 0.0, 0.0);
+		glVertex2f(-900, -254);
+		glVertex2f(-915, -254);
+		glVertex2f(-915, -305);
+		glVertex2f(-900, -305);
+		glEnd();
+
 	glPopMatrix();
 }
-
 
 
 // Desenha o ambiente
