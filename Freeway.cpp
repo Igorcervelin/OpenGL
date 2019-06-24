@@ -11,28 +11,24 @@
 #define janela_altura 1000
 #define janela_largura 2000
 
-// Coordenadas variáveis para X e Y
-float tx = 0.0;
-float ty = 0.0;
+// Coordenadas variáveis para movimentação dos carros
+float tx1 = 0.0;
+float tx2 = 0.0;
+float tx3 = 0.0;
+float tx4 = 0.0;
 
-// Número de passos movidos por Loop de animação
+// Número de passos movidos por Loop de animação da galinha
 float xt = 0;
 float yt = 0;
 
-// Variável flag para saber a direção do peixe
-float p = 0;
-
-// Variável de rotação
-float rot = 180.0;
-
-// Define o nível de R, G e B
-float r = 1.0;
-float g = 0.65;
-float b = 0.0;
+// Velocidades
+float vel1 = 0.7;
+float vel2 = 0.9;
+float vel3 = 1.2;
+float vel4 = 1.5;
 
 // Declaração de funções
 void anima(int valor);
-void galinha();
 void update(int valor); int interval = 1000 / 60;
 void display(void);
 void tela(GLsizei w, GLsizei h);
@@ -53,16 +49,151 @@ int main(int argc, char** argv) {
 	return(0);
 }
 
-// Função de animação
-void anima(int valor) {
-
-}
-
 void update(int valor) {
 	keyboard();
 	glutTimerFunc(interval, update, 0);
 	glutPostRedisplay;
 }
+
+
+// Função de animação
+void anima(int valor) {
+
+	tx1 += vel1;
+	tx2 += vel2;
+	tx3 += vel3;
+	tx4 += vel4;
+
+		
+	if(tx1 >= 1600){
+		tx1= -140;
+	}
+
+	if (tx2 >= 1600) {
+		tx2 = -140;
+	}
+
+	if (tx3 >= 1600) {
+		tx3 = -140;
+	}
+
+	if (tx4 >= 1600) {
+		tx4 = -140;
+	}
+
+	if (yt >= 845) {
+		yt = 0;
+		xt = 0;
+	}
+	
+	glutPostRedisplay();
+	glutTimerFunc(1, anima, 1);
+
+}
+
+void carro() {
+
+	// Faixa 1
+
+	glPushMatrix();
+	glTranslated(tx4, 0, 0);
+
+		glBegin(GL_QUADS);
+		glColor3f(1.0, 0.5, 0.0);
+		glVertex2f(-925, 57);
+		glColor3f(0.0, 0.0, 0.0);
+		glVertex2f(-825, 57);
+		glVertex2f(-825, 123);
+		glColor3f(1.0, 0.5, 0.0);
+		glVertex2f(-925, 123);
+		glEnd();
+
+		glBegin(GL_QUADS);
+		glColor3f(0.6, 0.6, 1.0);
+		glVertex2f(-875, 62);
+		glVertex2f(-840, 62);
+		glVertex2f(-840, 118);
+		glVertex2f(-875, 118);
+		glEnd();
+
+	glPopMatrix();
+
+	// Faixa 2
+
+	glPushMatrix();
+	glTranslated(tx2, 0, 0);
+
+		glBegin(GL_QUADS);
+		glColor3f(1.0, 0.5, 0.0);
+		glVertex2f(-925, 244);
+		glColor3f(0.0, 0.0, 0.0);
+		glVertex2f(-825, 244);
+		glVertex2f(-825, 305);
+		glColor3f(1.0, 0.5, 0.0);
+		glVertex2f(-925, 305);
+		glEnd();
+
+		glBegin(GL_QUADS);
+		glColor3f(0.6, 0.6, 1.0);
+		glVertex2f(-875, 249);
+		glVertex2f(-840, 249);
+		glVertex2f(-840, 300);
+		glVertex2f(-875, 300);
+		glEnd();
+
+	glPopMatrix();
+
+	// Faixa 3
+
+	glPushMatrix();
+	glTranslated(tx3, 0, 0);
+
+		glBegin(GL_QUADS);
+		glColor3f(1.0, 0.5, 0.0);
+		glVertex2f(-925, -67);
+		glColor3f(0.0, 0.0, 0.0);
+		glVertex2f(-825, -67);
+		glVertex2f(-825, -128);
+		glColor3f(1.0, 0.5, 0.0);
+		glVertex2f(-925, -128);
+		glEnd();
+
+		glBegin(GL_QUADS);
+		glColor3f(0.6, 0.6, 1.0);
+		glVertex2f(-875, -72);
+		glVertex2f(-840, -72);
+		glVertex2f(-840, -123);
+		glVertex2f(-875, -123);
+		glEnd();
+
+	glPopMatrix();
+
+	// Faixa 4
+
+	glPushMatrix();
+	glTranslated(tx1, 0, 0);
+
+		glBegin(GL_QUADS);
+		glColor3f(1.0, 0.5, 0.0);
+		glVertex2f(-925, -249);
+		glColor3f(0.0, 0.0, 0.0);
+		glVertex2f(-825, -249);
+		glVertex2f(-825, -310);
+		glColor3f(1.0, 0.5, 0.0);
+		glVertex2f(-925, -310);
+		glEnd();
+
+		glBegin(GL_QUADS);
+		glColor3f(0.6, 0.6, 1.0);
+		glVertex2f(-875, -254);
+		glVertex2f(-840, -254);
+		glVertex2f(-840, -305);
+		glVertex2f(-875, -305);
+		glEnd();
+
+	glPopMatrix();
+}
+
 
 
 // Desenha o ambiente
@@ -74,10 +205,10 @@ void ambiente() {
 	for (int i = 0; i <= 19; i++) {
 		glBegin(GL_QUADS);
 		glColor3f(1.0, 1.0, 0.0);
-		glVertex2f(-925 + x, 45);
-		glVertex2f(-1000 + x, 45);
-		glVertex2f(-1000 + x, 32);
-		glVertex2f(-925 + x, 32);
+		glVertex2f(-925 + x, 5);
+		glVertex2f(-1000 + x, 5);
+		glVertex2f(-1000 + x, -10);
+		glVertex2f(-925 + x, -10);
 		glEnd();
 
 		x += 100;
@@ -89,10 +220,10 @@ void ambiente() {
 	for (int i = 0; i <= 19; i++) { 
 		glBegin(GL_QUADS);
 		glColor3f(1.0, 1.0, 1.0);
-		glVertex2f(-925 + x, 220);
-		glVertex2f(-1000 + x, 220);
-		glVertex2f(-1000 + x, 227);
-		glVertex2f(-925 + x, 227);
+		glVertex2f(-925 + x, 180);
+		glVertex2f(-1000 + x, 180);
+		glVertex2f(-1000 + x, 187);
+		glVertex2f(-925 + x, 187);
 		glEnd();
 
 		x += 100;
@@ -104,10 +235,10 @@ void ambiente() {
 	for (int i = 0; i <= 19; i++) { 
 		glBegin(GL_QUADS);
 		glColor3f(1.0, 1.0, 1.0);
-		glVertex2f(-925 + x, -220+32);
-		glVertex2f(-1000 + x, -220+32);
-		glVertex2f(-1000 + x, -227+32);
-		glVertex2f(-925 + x, -227+32);
+		glVertex2f(-925 + x, -185);
+		glVertex2f(-1000 + x, -185);
+		glVertex2f(-1000 + x, -192);
+		glVertex2f(-925 + x, -192);
 		glEnd();
 
 		x += 100;
@@ -116,18 +247,18 @@ void ambiente() {
 	// Calçada top
 	glBegin(GL_QUADS);
 	glColor3f(0.45, 0.3, 0.2);
-	glVertex2f(1000, 400);
-	glVertex2f(1000, 600);
-	glVertex2f(-1000, 600);
-	glVertex2f(-1000, 400);
+	glVertex2f(1000, 362);
+	glVertex2f(1000, 450);
+	glVertex2f(-1000, 450);
+	glVertex2f(-1000, 362);
 	glEnd();
 
 	// Calçada bot
 	glBegin(GL_QUADS);
 	glColor3f(0.45, 0.3, 0.2);
 	glVertex2f(1000, -500);
-	glVertex2f(1000, -400);
-	glVertex2f(-1000, -400);
+	glVertex2f(1000, -367);
+	glVertex2f(-1000, -367);
 	glVertex2f(-1000, -500);
 	glEnd();
 
@@ -135,13 +266,6 @@ void ambiente() {
 
 // Desenha a galinha
 void galinha() {
-
-	//glTranslated(tx, ty, 0);
-	//glRotatef(rot, 0.0, 0.0, 1.0);
-
-	if (p == 1) { // Quando o peixe bater no aquário ele muda de direção
-		glRotatef(180.0, 0.0, 1.0, 0.0);
-	}
 
 	// Corpo
 	GLfloat  circ_pnt = 500;
@@ -247,7 +371,7 @@ void galinha() {
 
 	// Bico
 	glBegin(GL_TRIANGLES);
-	glColor3f(r, g, b);
+	glColor3f(1.0, 0.65, 0.0);
 	glVertex2f(-55 + xt, -440 + yt);
 	glVertex2f(-75 + xt, -430 + yt);
 	glVertex2f(-55 + xt, -420 + yt);
@@ -308,24 +432,34 @@ void galinha() {
 void keyboard() {
 	
 	if (GetAsyncKeyState(VK_W)) {
-		yt += 6;
+		yt += 4;
 		display();
 	}
 
 	if (GetAsyncKeyState(VK_A)) {
-		xt -= 6;
-		display();
+		if(xt >= -910) {
+			xt -= 4;
+			display();
+		}
+
 	}
 
 	if (GetAsyncKeyState(VK_S)) {
-		yt -= 6;
-		display();
+		if (yt >= -20) {
+			yt -= 4;
+			display();
+		}
+
 	}
 
 	if (GetAsyncKeyState(VK_D)) {
-		xt += 6;
-		display();
+		if (xt <= 610) {
+			xt += 4;
+			display();
+		}
+
 	}		
+
 }
 
 void display() {
@@ -341,6 +475,7 @@ void display() {
 	glViewport(0, 0, janela_largura, janela_altura);
 
 	ambiente();
+	carro();
 	galinha();
 
 	glFlush();
