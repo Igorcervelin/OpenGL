@@ -12,10 +12,10 @@
 #define janela_largura 2000
 
 // Coordenadas variáveis para movimentação dos carros
-float tx1 = 0.0;
-float tx2 = 0.0;
-float tx3 = 0.0;
-float tx4 = 0.0;
+float tx1 = -140.0;
+float tx2 = -140.0;
+float tx3 = -140.0;
+float tx4 = -140.0;
 
 // Número de passos movidos por Loop de animação da galinha
 float xt = 0;
@@ -26,6 +26,12 @@ float vel1 = 0.7;
 float vel2 = -0.9;
 float vel3 = 1.2;
 float vel4 = -1.5;
+
+// Área dos carros
+float carro1f, carro1b;
+float carro2f, carro2b;
+float carro3f, carro3b;
+float carro4f, carro4b;
 
 // Declaração de funções
 void anima(int valor);
@@ -63,8 +69,8 @@ void anima(int valor) {
 	tx3 += vel3;
 	tx4 += vel4;
 
-	if(tx1 >= 1600){
-		tx1= -140;
+	if (tx1 >= 1600) {
+		tx1 = -140;
 	}
 
 	if (tx2 <= -140) {
@@ -83,231 +89,269 @@ void anima(int valor) {
 		yt = 0;
 		xt = 0;
 	}
-	
+
 	glutPostRedisplay();
 	glutTimerFunc(1, anima, 1);
 
 }
 
+void touch() {
+
+	if (yt >= 84 && yt <= 202) {
+		if (xt <= carro1f && xt >= carro1b + 20) {
+			xt = 0;
+			yt = 0;
+		}
+	}
+	else if (yt >= 264 && yt <= 380) {
+		if (xt <= carro2f && xt >= carro2b + 20) {
+			xt = 0;
+			yt = 0;
+		}
+	}
+	else if (yt >= 448 && yt <= 570) {
+		if (xt <= carro3f+80 && xt >= carro3b) {
+			xt = 0;
+			yt = 0;
+		}
+	}
+	else if (yt >= 636 && yt <= 756) {
+		if (xt <= carro4f+80 && xt >= carro4b) {
+			xt = 0;
+			yt = 0;
+		}
+	}
+}
+
 void carro() {
 
-	// Faixa 1
+	// Faixa 4
 
 	glPushMatrix();
-	glTranslated(tx3, 0, 0);
 
-		glBegin(GL_QUADS);
-		glColor3f(1.0, 0.1, 0.0);
-		glVertex2f(-925, 57);
-		glVertex2f(-825, 57);
-		glVertex2f(-825, 123);
-		glVertex2f(-925, 123);
-		glEnd();
+	glBegin(GL_QUADS);
+	glColor3f(1.0, 0.1, 0.0);
+	glVertex2f(-925 + tx1, 244);
+	glVertex2f(-825 + tx1, 244);
+	glVertex2f(-825 + tx1, 305);
+	glVertex2f(-925 + tx1, 305);
+	glEnd();
 
-		glBegin(GL_QUADS); 
-		glColor3f(0.6, 0.6, 1.0);
-		glVertex2f(-915, 62);
-		glVertex2f(-880, 62);
-		glVertex2f(-880, 118);
-		glVertex2f(-915, 118);
-		glEnd();
+	carro4f = (-825 + tx1);
+	carro4b = (-925 + tx1);
 
-		glBegin(GL_QUADS);
-		glColor3f(0.6, 0.6, 1.0);
-		glVertex2f(-840, 62);
-		glVertex2f(-855, 62);
-		glVertex2f(-855, 118);
-		glVertex2f(-840, 118);
-		glEnd();
+	glBegin(GL_QUADS);
+	glColor3f(0.6, 0.6, 1.0);
+	glVertex2f(-915 + tx1, 249);
+	glVertex2f(-880 + tx1, 249);
+	glVertex2f(-880 + tx1, 300);
+	glVertex2f(-915 + tx1, 300);
+	glEnd();
 
-		glBegin(GL_LINE_STRIP);
-		glColor3f(0.0, 0.0, 0.0);
-		glVertex2f(-925, 57);
-		glVertex2f(-825, 57);
-		glVertex2f(-825, 123);
-		glVertex2f(-925, 123);
-		glEnd();
+	glBegin(GL_QUADS);
+	glColor3f(0.6, 0.6, 1.0);
+	glVertex2f(-840 + tx1, 249);
+	glVertex2f(-855 + tx1, 249);
+	glVertex2f(-855 + tx1, 300);
+	glVertex2f(-840 + tx1, 300);
+	glEnd();
 
-		glBegin(GL_LINE_STRIP);
-		glColor3f(0.0, 0.0, 0.0);
-		glVertex2f(-915, 62);
-		glVertex2f(-880, 62);
-		glVertex2f(-880, 118);
-		glVertex2f(-915, 118);
-		glEnd();
+	glBegin(GL_LINE_STRIP);
+	glColor3f(0.0, 0.0, 0.0);
+	glVertex2f(-925 + tx1, 244);
+	glVertex2f(-825 + tx1, 244);
+	glVertex2f(-825 + tx1, 305);
+	glVertex2f(-925 + tx1, 305);
+	glEnd();
 
-		glBegin(GL_LINE_STRIP);
-		glColor3f(0.0, 0.0, 0.0);
-		glVertex2f(-840, 62);
-		glVertex2f(-855, 62);
-		glVertex2f(-855, 118);
-		glVertex2f(-840, 118);
-		glEnd();
+	glBegin(GL_LINE_STRIP);
+	glColor3f(0.0, 0.0, 0.0);
+	glVertex2f(-915 + tx1, 249);
+	glVertex2f(-880 + tx1, 249);
+	glVertex2f(-880 + tx1, 300);
+	glVertex2f(-915 + tx1, 300);
+	glEnd();
 
-	glPopMatrix();
-
-	// Faixa 2
-
-	glPushMatrix();
-	glTranslated(tx1, 0, 0);
-
-		glBegin(GL_QUADS);
-		glColor3f(1.0, 0.1, 0.0);
-		glVertex2f(-925, 244);
-		glVertex2f(-825, 244);
-		glVertex2f(-825, 305);
-		glVertex2f(-925, 305);
-		glEnd();
-
-		glBegin(GL_QUADS);
-		glColor3f(0.6, 0.6, 1.0);
-		glVertex2f(-915, 249);
-		glVertex2f(-880, 249);
-		glVertex2f(-880, 300);
-		glVertex2f(-915, 300);
-		glEnd();
-
-		glBegin(GL_QUADS);
-		glColor3f(0.6, 0.6, 1.0);
-		glVertex2f(-840, 249);
-		glVertex2f(-855, 249);
-		glVertex2f(-855, 300);
-		glVertex2f(-840, 300);
-		glEnd();
-
-		glBegin(GL_LINE_STRIP);
-		glColor3f(0.0, 0.0, 0.0);
-		glVertex2f(-925, 244);
-		glVertex2f(-825, 244);
-		glVertex2f(-825, 305);
-		glVertex2f(-925, 305);
-		glEnd();
-
-		glBegin(GL_LINE_STRIP);
-		glColor3f(0.0, 0.0, 0.0);
-		glVertex2f(-915, 249);
-		glVertex2f(-880, 249);
-		glVertex2f(-880, 300);
-		glVertex2f(-915, 300);
-		glEnd();
-
-		glBegin(GL_LINE_STRIP);
-		glColor3f(0.0, 0.0, 0.0);
-		glVertex2f(-840, 249);
-		glVertex2f(-855, 249);
-		glVertex2f(-855, 300);
-		glVertex2f(-840, 300);
-		glEnd();
+	glBegin(GL_LINE_STRIP);
+	glColor3f(0.0, 0.0, 0.0);
+	glVertex2f(-840 + tx1, 249);
+	glVertex2f(-855 + tx1, 249);
+	glVertex2f(-855 + tx1, 300);
+	glVertex2f(-840 + tx1, 300);
+	glEnd();
 
 	glPopMatrix();
 
 	// Faixa 3
 
 	glPushMatrix();
-	glTranslated(tx4, 0, 0);
 
-		glBegin(GL_QUADS);
-		glColor3f(1.0, 0.1, 0.0);
-		glVertex2f(-925, -67);
-		glVertex2f(-825, -67);
-		glVertex2f(-825, -128);
-		glVertex2f(-925, -128);
-		glEnd();
+	glBegin(GL_QUADS);
+	glColor3f(1.0, 0.1, 0.0);
+	glVertex2f(-925 + tx3, 57);
+	glVertex2f(-825 + tx3, 57);
+	glVertex2f(-825 + tx3, 123);
+	glVertex2f(-925 + tx3, 123);
+	glEnd();
 
-		glBegin(GL_QUADS);
-		glColor3f(0.6, 0.6, 1.0);
-		glVertex2f(-875, -72);
-		glVertex2f(-840, -72);
-		glVertex2f(-840, -123);
-		glVertex2f(-875, -123);
-		glEnd();
+	carro3f = (-825 + tx3);
+	carro3b = (-925 + tx3);
+	//printf("%.1f - %.1f\n", carro3f, carro3b);
 
-		glBegin(GL_QUADS);
-		glColor3f(0.6, 0.6, 1.0);
-		glVertex2f(-915, -72);
-		glVertex2f(-900, -72);
-		glVertex2f(-900, -123);
-		glVertex2f(-915, -123);
-		glEnd();
 
-		glBegin(GL_LINE_STRIP);
-		glColor3f(0.0, 0.0, 0.0);
-		glVertex2f(-925, -67);
-		glVertex2f(-825, -67);
-		glVertex2f(-825, -128);
-		glVertex2f(-925, -128);
-		glEnd();
+	glBegin(GL_QUADS);
+	glColor3f(0.6, 0.6, 1.0);
+	glVertex2f(-915 + tx3, 62);
+	glVertex2f(-880 + tx3, 62);
+	glVertex2f(-880 + tx3, 118);
+	glVertex2f(-915 + tx3, 118);
+	glEnd();
 
-		glBegin(GL_LINE_STRIP);
-		glColor3f(0.0, 0.0, 0.0);
-		glVertex2f(-875, -72);
-		glVertex2f(-840, -72);
-		glVertex2f(-840, -123);
-		glVertex2f(-875, -123);
-		glEnd();
+	glBegin(GL_QUADS);
+	glColor3f(0.6, 0.6, 1.0);
+	glVertex2f(-840 + tx3, 62);
+	glVertex2f(-855 + tx3, 62);
+	glVertex2f(-855 + tx3, 118);
+	glVertex2f(-840 + tx3, 118);
+	glEnd();
 
-		glBegin(GL_LINE_STRIP);
-		glColor3f(0.0, 0.0, 0.0);
-		glVertex2f(-915, -72);
-		glVertex2f(-900, -72);
-		glVertex2f(-900, -123);
-		glVertex2f(-915, -123);
-		glEnd();
+	glBegin(GL_LINE_STRIP);
+	glColor3f(0.0, 0.0, 0.0);
+	glVertex2f(-925 + tx3, 57);
+	glVertex2f(-825 + tx3, 57);
+	glVertex2f(-825 + tx3, 123);
+	glVertex2f(-925 + tx3, 123);
+	glEnd();
+
+	glBegin(GL_LINE_STRIP);
+	glColor3f(0.0, 0.0, 0.0);
+	glVertex2f(-915 + tx3, 62);
+	glVertex2f(-880 + tx3, 62);
+	glVertex2f(-880 + tx3, 118);
+	glVertex2f(-915 + tx3, 118);
+	glEnd();
+
+	glBegin(GL_LINE_STRIP);
+	glColor3f(0.0, 0.0, 0.0);
+	glVertex2f(-840 + tx3, 62);
+	glVertex2f(-855 + tx3, 62);
+	glVertex2f(-855 + tx3, 118);
+	glVertex2f(-840 + tx3, 118);
+	glEnd();
 
 	glPopMatrix();
 
-	// Faixa 4
+	// Faixa 2
 
 	glPushMatrix();
-	glTranslated(tx2, 0, 0);
 
-		glBegin(GL_QUADS);
-		glColor3f(1.0, 0.1, 0.0);
-		glVertex2f(-925, -249);
-		glVertex2f(-825, -249);
-		glVertex2f(-825, -310);
-		glVertex2f(-925, -310);
-		glEnd();
+	glBegin(GL_QUADS);
+	glColor3f(1.0, 0.1, 0.0);
+	glVertex2f(-925 + tx4, -67);
+	glVertex2f(-825 + tx4, -67);
+	glVertex2f(-825 + tx4, -128);
+	glVertex2f(-925 + tx4, -128);
+	glEnd();
 
-		glBegin(GL_QUADS);
-		glColor3f(0.6, 0.6, 1.0);
-		glVertex2f(-875, -254);
-		glVertex2f(-840, -254);
-		glVertex2f(-840, -305);
-		glVertex2f(-875, -305);
-		glEnd();
+	carro2f = (-825 + tx4);
+	carro2b = (-925 + tx4);
 
-		glBegin(GL_QUADS);
-		glColor3f(0.6, 0.6, 1.0);
-		glVertex2f(-900, -254);
-		glVertex2f(-915, -254);
-		glVertex2f(-915, -305);
-		glVertex2f(-900, -305);
-		glEnd();
+	glBegin(GL_QUADS);
+	glColor3f(0.6, 0.6, 1.0);
+	glVertex2f(-875 + tx4, -72);
+	glVertex2f(-840 + tx4, -72);
+	glVertex2f(-840 + tx4, -123);
+	glVertex2f(-875 + tx4, -123);
+	glEnd();
 
-		glBegin(GL_LINE_STRIP);
-		glColor3f(0.0, 0.0, 0.0);
-		glVertex2f(-925, -249);
-		glVertex2f(-825, -249);
-		glVertex2f(-825, -310);
-		glVertex2f(-925, -310);
-		glEnd();
+	glBegin(GL_QUADS);
+	glColor3f(0.6, 0.6, 1.0);
+	glVertex2f(-915 + tx4, -72);
+	glVertex2f(-900 + tx4, -72);
+	glVertex2f(-900 + tx4, -123);
+	glVertex2f(-915 + tx4, -123);
+	glEnd();
 
-		glBegin(GL_LINE_STRIP);
-		glColor3f(0.0, 0.0, 0.0);
-		glVertex2f(-875, -254);
-		glVertex2f(-840, -254);
-		glVertex2f(-840, -305);
-		glVertex2f(-875, -305);
-		glEnd();
+	glBegin(GL_LINE_STRIP);
+	glColor3f(0.0, 0.0, 0.0);
+	glVertex2f(-925 + tx4, -67);
+	glVertex2f(-825 + tx4, -67);
+	glVertex2f(-825 + tx4, -128);
+	glVertex2f(-925 + tx4, -128);
+	glEnd();
 
-		glBegin(GL_LINE_STRIP);
-		glColor3f(0.0, 0.0, 0.0);
-		glVertex2f(-900, -254);
-		glVertex2f(-915, -254);
-		glVertex2f(-915, -305);
-		glVertex2f(-900, -305);
-		glEnd();
+	glBegin(GL_LINE_STRIP);
+	glColor3f(0.0, 0.0, 0.0);
+	glVertex2f(-875 + tx4, -72);
+	glVertex2f(-840 + tx4, -72);
+	glVertex2f(-840 + tx4, -123);
+	glVertex2f(-875 + tx4, -123);
+	glEnd();
+
+	glBegin(GL_LINE_STRIP);
+	glColor3f(0.0, 0.0, 0.0);
+	glVertex2f(-915 + tx4, -72);
+	glVertex2f(-900 + tx4, -72);
+	glVertex2f(-900 + tx4, -123);
+	glVertex2f(-915 + tx4, -123);
+	glEnd();
+
+	glPopMatrix();
+
+	// Faixa 1
+
+	glPushMatrix();
+
+	glBegin(GL_QUADS);
+	glColor3f(1.0, 0.1, 0.0);
+	glVertex2f(-925 + tx2, -249);
+	glVertex2f(-825 + tx2, -249);
+	glVertex2f(-825 + tx2, -310);
+	glVertex2f(-925 + tx2, -310);
+	glEnd();
+
+	carro1f = (-825 + tx2);
+	carro1b = (-925 + tx2);
+
+	glBegin(GL_QUADS);
+	glColor3f(0.6, 0.6, 1.0);
+	glVertex2f(-875 + tx2, -254);
+	glVertex2f(-840 + tx2, -254);
+	glVertex2f(-840 + tx2, -305);
+	glVertex2f(-875 + tx2, -305);
+	glEnd();
+
+	glBegin(GL_QUADS);
+	glColor3f(0.6, 0.6, 1.0);
+	glVertex2f(-900 + tx2, -254);
+	glVertex2f(-915 + tx2, -254);
+	glVertex2f(-915 + tx2, -305);
+	glVertex2f(-900 + tx2, -305);
+	glEnd();
+
+	glBegin(GL_LINE_STRIP);
+	glColor3f(0.0, 0.0, 0.0);
+	glVertex2f(-925 + tx2, -249);
+	glVertex2f(-825 + tx2, -249);
+	glVertex2f(-825 + tx2, -310);
+	glVertex2f(-925 + tx2, -310);
+	glEnd();
+
+	glBegin(GL_LINE_STRIP);
+	glColor3f(0.0, 0.0, 0.0);
+	glVertex2f(-875 + tx2, -254);
+	glVertex2f(-840 + tx2, -254);
+	glVertex2f(-840 + tx2, -305);
+	glVertex2f(-875 + tx2, -305);
+	glEnd();
+
+	glBegin(GL_LINE_STRIP);
+	glColor3f(0.0, 0.0, 0.0);
+	glVertex2f(-900 + tx2, -254);
+	glVertex2f(-915 + tx2, -254);
+	glVertex2f(-915 + tx2, -305);
+	glVertex2f(-900 + tx2, -305);
+	glEnd();
 
 	glPopMatrix();
 }
@@ -334,7 +378,7 @@ void ambiente() {
 	x = 0;
 
 	// Faixa top
-	for (int i = 0; i <= 19; i++) { 
+	for (int i = 0; i <= 19; i++) {
 		glBegin(GL_QUADS);
 		glColor3f(1.0, 1.0, 1.0);
 		glVertex2f(-925 + x, 180);
@@ -349,7 +393,7 @@ void ambiente() {
 	x = 0;
 
 	// Faixa bot
-	for (int i = 0; i <= 19; i++) { 
+	for (int i = 0; i <= 19; i++) {
 		glBegin(GL_QUADS);
 		glColor3f(1.0, 1.0, 1.0);
 		glVertex2f(-925 + x, -185);
@@ -384,35 +428,32 @@ void ambiente() {
 // Desenha a galinha
 void galinha() {
 
-	// Corpo
-	GLfloat  circ_pnt = 500;
-	GLfloat  ang, raioX = 27.0f, raioY = 35.0f;
+	// corpo
+	glBegin(GL_QUADS);
 	glColor3f(1.0, 1.0, 1.0);
-	glBegin(GL_POLYGON);
-	for (int i = 0; i < (circ_pnt); i++) {
-		ang = (2 * PI * i) / circ_pnt;
-		glVertex2f(cos(ang) * raioX - 50 + xt, sin(ang) * raioY - 420 + yt);
-	}
+	glVertex2f(-20 + xt, -445 + yt);
+	glVertex2f(-20 + xt, -385 + yt);
+	glVertex2f(-80 + xt, -385 + yt);
+	glVertex2f(-80 + xt, -445 + yt);
 	glEnd();
 
-	// Corpo contorno
-	circ_pnt = 500;
-	ang, raioX = 27.0f, raioY = 35.0f;
-	glColor3f(0.0, 0.0, 0.0);
+	// contorno corpo
 	glBegin(GL_LINE_STRIP);
-	for (int i = 0; i < (circ_pnt); i++) {
-		ang = (2 * PI * i) / circ_pnt;
-		glVertex2f(cos(ang) * raioX -50 + xt, sin(ang) * raioY - 420 + yt);
-	}
+	glColor3f(0.0, 0.0, 0.0);
+	glVertex2f(-20 + xt, -445 + yt);
+	glVertex2f(-20 + xt, -385 + yt);
+	glVertex2f(-80 + xt, -385 + yt);
+	glVertex2f(-80 + xt, -445 + yt);
 	glEnd();
 
 	// olho Esquerdo
-	ang, raioX = 10.0f, raioY = 3.5f;
+	GLfloat circ_pnt = 500;
+	GLfloat ang, raioX = 10.0f, raioY = 3.5f;
 	glColor3f(1.0, 1.0, 1.0);
 	glBegin(GL_POLYGON);
 	for (int i = 0; i < (circ_pnt); i++) {
 		ang = (2 * PI * i) / circ_pnt;
-		glVertex2f(cos(ang) * raioX - 63 + xt, sin(ang) * raioY -410 + yt);
+		glVertex2f(cos(ang) * raioX - 63 + xt, sin(ang) * raioY - 410 + yt);
 	}
 	glEnd();
 
@@ -547,15 +588,17 @@ void galinha() {
 
 // Função para utilizar o teclado
 void keyboard() {
-	
+
 	if (GetAsyncKeyState(VK_W)) {
 		yt += 4;
+		printf("%.1f\n", yt);
 		display();
 	}
 
 	if (GetAsyncKeyState(VK_A)) {
-		if(xt >= -910) {
+		if (xt >= -910) {
 			xt -= 4;
+			printf("%.1f\n", xt);
 			display();
 		}
 
@@ -563,6 +606,7 @@ void keyboard() {
 
 	if (GetAsyncKeyState(VK_S)) {
 		if (yt >= -20) {
+			printf("%.1f\n", yt);
 			yt -= 4;
 			display();
 		}
@@ -572,10 +616,11 @@ void keyboard() {
 	if (GetAsyncKeyState(VK_D)) {
 		if (xt <= 610) {
 			xt += 4;
+			printf("%.1f\n", xt);
 			display();
 		}
 
-	}		
+	}
 
 }
 
@@ -591,6 +636,7 @@ void display() {
 	glTranslatef(janela_largura / 2, janela_altura / 2, 0.0f);
 	glViewport(0, 0, janela_largura, janela_altura);
 
+	touch();
 	ambiente();
 	carro();
 	galinha();
